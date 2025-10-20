@@ -1,46 +1,93 @@
-# Getting Started with Create React App
+# 🧮 Mathematical Exercises
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A comprehensive web application designed to help 5th-grade students practice and improve their mathematical skills through timed exercises.
 
-## Available Scripts
+## 🎯 Features
 
-In the project directory, you can run:
+- **Interactive Math Problems**: Practice addition, subtraction, multiplication, and division
+- **Timed Sessions**: Complete problems within a time limit to build speed and accuracy
+- **Progress Tracking**: Monitor your improvement across multiple sessions
+- **Responsive Design**: Works seamlessly on tablets, phones, and desktop computers
+- **Bilingual Support**: Available in English and German
+- **Local Data Storage**: Your progress is saved locally in your browser
 
-### `npm start`
+## 📚 Educational Value
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+This application is specifically designed for 5th-grade students to:
+- Reinforce fundamental arithmetic operations
+- Develop mental math skills
+- Build confidence in mathematical problem-solving
+- Practice time management during assessments
+- Track personal progress and improvement
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## 🚀 Getting Started
 
-### `npm test`
+### Prerequisites
+- Modern web browser (Chrome, Firefox, Safari, Edge)
+- No installation required - runs directly in your browser
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### How to Use
 
-### `npm run build`
+1. **Choose Language**: Select your preferred language (English/Deutsch) in the top-right corner
+2. **Select Session**: Click on any available session card to begin
+3. **Start Session**: Click "Start Session" to begin the timed exercise
+4. **Solve Problems**: Answer each math problem as quickly and accurately as possible
+5. **Skip if Needed**: Use "Skip Problem" to move difficult problems to the end
+6. **View Results**: See your score, accuracy, and review incorrect answers
+7. **Track Progress**: Completed sessions show your score for future reference
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## 🧠 Problem Types
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Each session includes problems evenly distributed across four categories:
+- **Addition** (+): Combining numbers
+- **Subtraction** (−): Finding the difference
+- **Multiplication** (×): Repeated addition
+- **Division** (÷): Splitting into equal groups
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## ⏱️ Session Structure
 
-### `npm run eject`
+- **Development Mode**: 8 problems (2 of each type) in 1 minute
+- **Production Mode**: 100 problems (25 of each type) in 11 minutes
+- **Tablet Input**: Touch-friendly number input
+- **Skip Functionality**: Move challenging problems to the end of the queue
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## 🌐 Languages
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+The application supports two languages:
+- **English**: Complete English interface
+- **Deutsch**: Vollständige deutsche Benutzeroberfläche
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+Language preference is automatically saved and remembered between sessions.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## 🛠️ Technical Details
 
-## Learn More
+- **Framework**: React 19 with TypeScript
+- **Styling**: CSS with responsive design
+- **Storage**: Browser localStorage for progress tracking
+- **Deployment**: Single-page application, no server required
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## 📱 Device Compatibility
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- **Desktop Computers**: Full keyboard and mouse support
+- **Tablets**: Touch-optimized interface with virtual keyboard support
+- **Mobile Phones**: Responsive design with touch-friendly controls
+
+## 🎓 Educational Standards
+
+Aligned with 5th-grade mathematics curriculum standards covering:
+- Basic arithmetic operations
+- Problem-solving strategies
+- Time management skills
+- Self-assessment and progress tracking
+
+## 📞 Support
+
+If you encounter any issues or have suggestions for improvement, please check that you're using a modern web browser and try refreshing the page.
+
+## 📄 License
+
+This educational tool is provided as-is for learning purposes.
+
+---
+
+*Made with ❤️ for young mathematicians*

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { MathProblem } from '../types';
 import NumericInput from './NumericInput';
-import Numpad from './Numpad';
 import TimerDisplay from './TimerDisplay';
 import { TIMER_DURATION_SECONDS } from '../utils/storage';
 
@@ -38,13 +37,6 @@ const ProblemSolver: React.FC<ProblemSolverProps> = ({
     }
   };
 
-  const handleNumpadNumber = (number: number) => {
-    setCurrentAnswer(prev => (prev + number.toString()).slice(0, 4));
-  };
-
-  const handleNumpadBackspace = () => {
-    setCurrentAnswer(prev => prev.slice(0, -1));
-  };
 
   const handleSkip = () => {
     if (onSkipProblem) {
@@ -84,19 +76,9 @@ const ProblemSolver: React.FC<ProblemSolverProps> = ({
               onChange={setCurrentAnswer}
               placeholder=""
               maxLength={4}
-              showNumpad={false}
-              onNumpadNumber={handleNumpadNumber}
-              onNumpadBackspace={handleNumpadBackspace}
             />
           </div>
         </div>
-      </div>
-
-      <div className="numpad-row">
-        <Numpad
-          onNumberClick={handleNumpadNumber}
-          onBackspace={handleNumpadBackspace}
-        />
       </div>
 
       <div className="problem-navigation">

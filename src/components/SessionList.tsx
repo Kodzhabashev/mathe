@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { SessionData, SessionResult } from '../types';
 import SessionModal from './SessionModal';
 import Results from './Results';
-import { updateSession, initializeSession } from '../utils/storage';
+import { useLanguage } from '../contexts/LanguageContext';
+import { updateSession, initializeSession, TOTAL_PROBLEMS, TIMER_DURATION_SECONDS } from '../utils/storage';
 
 interface SessionListProps {
   sessions: SessionData[];
@@ -13,6 +14,7 @@ const SessionList: React.FC<SessionListProps> = ({ sessions, onSessionUpdate }) 
   const [selectedSession, setSelectedSession] = useState<SessionData | null>(null);
   const [modalOpen, setModalOpen] = useState(false);
   const [showResults, setShowResults] = useState<SessionResult | null>(null);
+  const { t } = useLanguage();
 
   const handleSessionClick = (session: SessionData) => {
     if (session.completed) {
@@ -61,10 +63,13 @@ const SessionList: React.FC<SessionListProps> = ({ sessions, onSessionUpdate }) 
     onSessionUpdate();
   };
 
+  const timerMinutes = Math.floor(TIMER_DURATION_SECONDS / 60);
+
   return (
     <div className="session-list">
-      <h1>Mathematical Exercises</h1>
-      <p>Select a session to begin. Each session contains 100 problems with an 11-minute time limit.</p>
+      <p className="session-description">
+        {t('sessionDescription', { problems: TOTAL_PROBLEMS, minutes: timerMinutes })}
+      </p>
 
       <div className="sessions-grid">
         {sessions.map(session => (
@@ -73,17 +78,17 @@ const SessionList: React.FC<SessionListProps> = ({ sessions, onSessionUpdate }) 
             className={`session-card ${session.completed ? 'completed' : 'available'} ${session.completed ? 'clickable-completed' : ''}`}
             onClick={() => handleSessionClick(session)}
           >
-            <div className="session-number">Session {session.id}</div>
+            <div className="session-number">{t('sessionNumber', { number: session.id })}</div>
             <div className="session-status">
               {session.completed ? (
-                <span className="completed-badge">✓ Completed</span>
+                <span className="completed-badge">{t('completedBadge')}</span>
               ) : (
-                <span className="available-badge">Available</span>
+                <span className="available-badge">{t('availableBadge')}</span>
               )}
             </div>
             {session.score !== undefined && (
               <div className="session-score">
-                Score: {session.score.toFixed(1)}%
+                {t('scoreLabel', { score: session.score.toFixed(1) })}
               </div>
             )}
           </div>

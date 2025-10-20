@@ -1,5 +1,4 @@
-import React, { useRef, useState } from 'react';
-import Numpad from './Numpad';
+import React, { useRef } from 'react';
 
 interface NumericInputProps {
   value: string;
@@ -7,9 +6,6 @@ interface NumericInputProps {
   placeholder?: string;
   maxLength?: number;
   className?: string;
-  showNumpad?: boolean;
-  onNumpadNumber?: (number: number) => void;
-  onNumpadBackspace?: () => void;
 }
 
 const NumericInput: React.FC<NumericInputProps> = ({
@@ -17,31 +13,9 @@ const NumericInput: React.FC<NumericInputProps> = ({
   onChange,
   placeholder = '',
   maxLength = 4,
-  className = '',
-  showNumpad = false,
-  onNumpadNumber,
-  onNumpadBackspace
+  className = ''
 }) => {
   const inputRef = useRef<HTMLInputElement>(null);
-  const [isNumpadVisible, setIsNumpadVisible] = useState(showNumpad);
-
-  // Detect if device supports touch (tablet/phone)
-  const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-
-  const handleFocus = () => {
-    // Show numpad on touch devices when input is focused
-    if (isTouchDevice && onNumpadNumber && onNumpadBackspace) {
-      setIsNumpadVisible(true);
-    }
-  };
-
-  const handleBlur = () => {
-    // Hide numpad on touch devices when input loses focus
-    if (isTouchDevice) {
-      // Delay hiding to allow numpad clicks
-      setTimeout(() => setIsNumpadVisible(false), 200);
-    }
-  };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = e.target.value;
@@ -80,8 +54,6 @@ const NumericInput: React.FC<NumericInputProps> = ({
         value={value}
         onChange={handleInputChange}
         onKeyDown={handleKeyDown}
-        onFocus={handleFocus}
-        onBlur={handleBlur}
         placeholder={placeholder}
         maxLength={maxLength}
         className="numeric-input"
@@ -97,12 +69,6 @@ const NumericInput: React.FC<NumericInputProps> = ({
         >
           ✕
         </button>
-      )}
-      {(showNumpad || isNumpadVisible) && onNumpadNumber && onNumpadBackspace && (
-        <Numpad
-          onNumberClick={onNumpadNumber}
-          onBackspace={onNumpadBackspace}
-        />
       )}
     </div>
   );

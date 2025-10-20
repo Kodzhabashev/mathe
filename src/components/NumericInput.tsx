@@ -66,16 +66,16 @@ const NumericInput: React.FC<NumericInputProps> = ({
         inputMode="numeric"
         pattern="[0-9]*"
       />
-      {value && (
-        <button
-          type="button"
-          onClick={handleClear}
-          className="clear-button"
-          aria-label="Clear input"
-        >
-          ✕
-        </button>
-      )}
+      <button
+        type="button"
+        onClick={handleClear}
+        className="clear-button"
+        disabled={!value}
+        style={{ opacity: value ? 1 : 0 }}
+        aria-label="Clear input"
+      >
+        ✕
+      </button>
     </div>
   );
 };

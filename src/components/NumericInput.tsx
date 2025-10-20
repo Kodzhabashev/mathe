@@ -6,6 +6,8 @@ interface NumericInputProps {
   placeholder?: string;
   maxLength?: number;
   className?: string;
+  onFocus?: () => void;
+  onBlur?: () => void;
 }
 
 const NumericInput: React.FC<NumericInputProps> = ({
@@ -13,7 +15,9 @@ const NumericInput: React.FC<NumericInputProps> = ({
   onChange,
   placeholder = '',
   maxLength = 4,
-  className = ''
+  className = '',
+  onFocus,
+  onBlur
 }) => {
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -54,6 +58,8 @@ const NumericInput: React.FC<NumericInputProps> = ({
         value={value}
         onChange={handleInputChange}
         onKeyDown={handleKeyDown}
+        onFocus={onFocus}
+        onBlur={onBlur}
         placeholder={placeholder}
         maxLength={maxLength}
         className="numeric-input"

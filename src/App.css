@@ -381,6 +381,73 @@ body {
   gap: 10px;
 }
 
+.numpad-row {
+  display: flex;
+  justify-content: center;
+  margin: 15px 0 0 0;
+}
+
+/* Numpad Styles */
+.numpad {
+  margin-top: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.numpad-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  max-width: 200px;
+}
+
+.numpad-button {
+  width: 45px;
+  height: 45px;
+  border: 2px solid #bdc3c7;
+  border-radius: 8px;
+  background: white;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  color: #2c3e50;
+}
+
+.numpad-button:hover:not(:disabled) {
+  background: #ecf0f1;
+  border-color: #3498db;
+  transform: translateY(-1px);
+}
+
+.numpad-button:active:not(:disabled) {
+  transform: translateY(0);
+  background: #3498db;
+  color: white;
+}
+
+.numpad-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.numpad-button.backspace-button {
+  background: #e74c3c;
+  color: white;
+  border-color: #e74c3c;
+  font-size: 1.3rem;
+}
+
+.numpad-button.backspace-button:hover:not(:disabled) {
+  background: #c0392b;
+  border-color: #c0392b;
+}
+
 .numeric-input {
   font-size: 2rem;
   padding: 10px 15px;

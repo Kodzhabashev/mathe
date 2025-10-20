@@ -16,6 +16,8 @@ export interface Translations {
   sessionTitle: string;
   startButton: string;
   closeButton: string;
+  problemsCount: string;
+  timerDuration: string;
 
   // Problem solving
   problemLabel: string;
@@ -24,6 +26,9 @@ export interface Translations {
 
   // Results
   resultsTitle: string;
+  scoreLabel: string;
+  accuracyLabel: string;
+  timeSpentLabel: string;
   scoreText: string;
   accuracyText: string;
   timeSpentText: string;
@@ -57,6 +62,8 @@ const translations: Record<Language, Translations> = {
     sessionTitle: 'Session {number}',
     startButton: 'Start Session',
     closeButton: 'Close',
+    problemsCount: '{count} Mathematical Problems',
+    timerDuration: '{minutes}-Minute Timer',
 
     // Problem solving
     problemLabel: 'Problem {current} of {total}',
@@ -65,6 +72,9 @@ const translations: Record<Language, Translations> = {
 
     // Results
     resultsTitle: 'Session {number} Results',
+    scoreLabel: 'Score',
+    accuracyLabel: 'Accuracy',
+    timeSpentLabel: 'Time Spent',
     scoreText: '{correct}/{total}',
     accuracyText: '{accuracy}%',
     timeSpentText: '{minutes}:{seconds}',
@@ -97,6 +107,8 @@ const translations: Record<Language, Translations> = {
     sessionTitle: 'Sitzung {number}',
     startButton: 'Sitzung starten',
     closeButton: 'Schließen',
+    problemsCount: '{count} Mathematische Aufgaben',
+    timerDuration: '{minutes}-Minütiger Timer',
 
     // Problem solving
     problemLabel: 'Aufgabe {current} von {total}',
@@ -105,6 +117,9 @@ const translations: Record<Language, Translations> = {
 
     // Results
     resultsTitle: 'Sitzung {number} Ergebnisse',
+    scoreLabel: 'Punktestand',
+    accuracyLabel: 'Genauigkeit',
+    timeSpentLabel: 'Benötigte Zeit',
     scoreText: '{correct}/{total}',
     accuracyText: '{accuracy}%',
     timeSpentText: '{minutes}:{seconds}',

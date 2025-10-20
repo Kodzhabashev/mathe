@@ -4,6 +4,7 @@ import Timer from './Timer';
 import TimerDisplay from './TimerDisplay';
 import ProblemSolver from './ProblemSolver';
 import Results from './Results';
+import { useLanguage } from '../contexts/LanguageContext';
 import { initializeSession, TIMER_DURATION_SECONDS } from '../utils/storage';
 
 interface SessionModalProps {
@@ -25,6 +26,7 @@ const SessionModal: React.FC<SessionModalProps> = ({
   const [sessionResult, setSessionResult] = useState<SessionResult | null>(null);
   const [initializedSession, setInitializedSession] = useState<SessionData | null>(null);
   const [timeLeft, setTimeLeft] = useState(TIMER_DURATION_SECONDS);
+  const { t } = useLanguage();
 
   useEffect(() => {
     if (isOpen && session) {
@@ -135,11 +137,11 @@ const SessionModal: React.FC<SessionModalProps> = ({
       <div className="session-modal">
         {sessionState === 'start' && (
           <div className="start-screen">
-            <h2>Session {session.id}</h2>
-            <p>100 Mathematical Problems</p>
-            <p>11 Minutes Timer</p>
+            <h2>{t('sessionTitle', { number: session.id })}</h2>
+            <p>{t('problemsCount', { count: TOTAL_PROBLEMS })}</p>
+            <p>{t('timerDuration', { minutes: Math.floor(TIMER_DURATION_SECONDS / 60) })}</p>
             <button className="start-button" onClick={handleStartSession}>
-              Start Session
+              {t('startButton')}
             </button>
             <button className="close-modal-button" onClick={onClose}>
               ✕

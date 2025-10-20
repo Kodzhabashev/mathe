@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { MathProblem } from '../types';
 import NumericInput from './NumericInput';
+import Numpad from './Numpad';
 import TimerDisplay from './TimerDisplay';
+import { useLanguage } from '../contexts/LanguageContext';
 import { TIMER_DURATION_SECONDS } from '../utils/storage';
 
 interface ProblemSolverProps {
@@ -22,6 +24,8 @@ const ProblemSolver: React.FC<ProblemSolverProps> = ({
   timeLeft = TIMER_DURATION_SECONDS,
 }) => {
   const [currentAnswer, setCurrentAnswer] = useState('');
+  const [isInputFocused, setIsInputFocused] = useState(false);
+  const { t } = useLanguage();
   const currentProblem = problems[currentProblemIndex];
 
   useEffect(() => {
@@ -35,6 +39,22 @@ const ProblemSolver: React.FC<ProblemSolverProps> = ({
       setCurrentAnswer('');
       onNextProblem();
     }
+  };
+
+  const handleNumpadNumber = (number: number) => {
+    setCurrentAnswer(prev => (prev + number.toString()).slice(0, 4));
+  };
+
+  const handleNumpadBackspace = () => {
+    setCurrentAnswer(prev => prev.slice(0, -1));
+  };
+
+  const handleInputFocus = () => {
+    setIsInputFocused(true);
+  };
+
+  const handleInputBlur = () => {
+    setIsInputFocused(false);
   };
 
 
@@ -76,7 +96,17 @@ const ProblemSolver: React.FC<ProblemSolverProps> = ({
               onChange={setCurrentAnswer}
               placeholder=""
               maxLength={4}
+              onFocus={handleInputFocus}
+              onBlur={handleInputBlur}
             />
+            {!isInputFocused && (
+              <div className="numpad-row">
+                <Numpad
+                  onNumberClick={handleNumpadNumber}
+                  onBackspace={handleNumpadBackspace}
+                />
+              </div>
+            )}
           </div>
         </div>
       </div>
@@ -87,14 +117,14 @@ const ProblemSolver: React.FC<ProblemSolverProps> = ({
           onClick={handleSubmitAnswer}
           disabled={!currentAnswer.trim()}
         >
-          Submit Answer
+          {t('submitAnswer')}
         </button>
         {onSkipProblem && (
           <button
             className="skip-button"
             onClick={handleSkip}
           >
-            Skip Problem
+            {t('skipProblem')}
           </button>
         )}
       </div>

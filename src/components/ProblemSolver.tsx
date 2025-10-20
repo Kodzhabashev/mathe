@@ -3,6 +3,7 @@ import { MathProblem } from '../types';
 import NumericInput from './NumericInput';
 import Numpad from './Numpad';
 import TimerDisplay from './TimerDisplay';
+import { TIMER_DURATION_SECONDS } from '../utils/storage';
 
 interface ProblemSolverProps {
   problems: MathProblem[];
@@ -19,7 +20,7 @@ const ProblemSolver: React.FC<ProblemSolverProps> = ({
   currentProblemIndex,
   onNextProblem,
   onSkipProblem,
-  timeLeft = 1 * 60,
+  timeLeft = TIMER_DURATION_SECONDS,
 }) => {
   const [currentAnswer, setCurrentAnswer] = useState('');
   const currentProblem = problems[currentProblemIndex];

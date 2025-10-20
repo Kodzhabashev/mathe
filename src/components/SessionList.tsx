@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { SessionData, SessionResult } from '../types';
 import SessionModal from './SessionModal';
-import { updateSession } from '../utils/storage';
+import Results from './Results';
+import { updateSession, initializeSession } from '../utils/storage';
 
 interface SessionListProps {
   sessions: SessionData[];
@@ -11,15 +12,42 @@ interface SessionListProps {
 const SessionList: React.FC<SessionListProps> = ({ sessions, onSessionUpdate }) => {
   const [selectedSession, setSelectedSession] = useState<SessionData | null>(null);
   const [modalOpen, setModalOpen] = useState(false);
+  const [showResults, setShowResults] = useState<SessionResult | null>(null);
 
   const handleSessionClick = (session: SessionData) => {
-    setSelectedSession(session);
-    setModalOpen(true);
+    if (session.completed) {
+      // Show results for completed session
+      const sessionData = initializeSession(session.id);
+      if (sessionData && sessionData.problems.length > 0) {
+        const answeredProblems = sessionData.problems;
+        const correctAnswers = answeredProblems.filter(p => p.userAnswer === p.correctAnswer).length;
+        const errors = answeredProblems.filter(p => p.userAnswer !== p.correctAnswer);
+
+        const result: SessionResult = {
+          sessionId: session.id,
+          correctAnswers,
+          totalProblems: answeredProblems.length,
+          timeSpent: session.timeSpent || 0,
+          errors,
+          accuracy: answeredProblems.length > 0 ? (correctAnswers / answeredProblems.length) * 100 : 0,
+        };
+
+        setShowResults(result);
+      }
+    } else {
+      // Start new session
+      setSelectedSession(session);
+      setModalOpen(true);
+    }
   };
 
   const handleModalClose = () => {
     setModalOpen(false);
     setSelectedSession(null);
+  };
+
+  const handleResultsClose = () => {
+    setShowResults(null);
   };
 
   const handleSessionComplete = (result: SessionResult) => {
@@ -42,7 +70,7 @@ const SessionList: React.FC<SessionListProps> = ({ sessions, onSessionUpdate }) 
         {sessions.map(session => (
           <div
             key={session.id}
-            className={`session-card ${session.completed ? 'completed' : 'available'}`}
+            className={`session-card ${session.completed ? 'completed' : 'available'} ${session.completed ? 'clickable-completed' : ''}`}
             onClick={() => handleSessionClick(session)}
           >
             <div className="session-number">Session {session.id}</div>
@@ -69,6 +97,20 @@ const SessionList: React.FC<SessionListProps> = ({ sessions, onSessionUpdate }) 
           onClose={handleModalClose}
           onSessionComplete={handleSessionComplete}
         />
+      )}
+
+      {showResults && (
+        <div className="session-modal-overlay">
+          <div className="session-modal results-modal-size">
+            <button className="modal-close-button" onClick={handleResultsClose}>
+              ✕
+            </button>
+            <Results
+              result={showResults}
+              onClose={handleResultsClose}
+            />
+          </div>
+        </div>
       )}
     </div>
   );

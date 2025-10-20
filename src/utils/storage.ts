@@ -3,6 +3,11 @@ import { generateSessionProblems } from './mathGenerator';
 
 const STORAGE_KEY = 'math_exercise_app_data';
 
+// Configuration constants
+const IS_DEVELOPMENT = process.env.NODE_ENV === 'development';
+export const TOTAL_PROBLEMS = IS_DEVELOPMENT ? 8 : 100; // 8 for testing, 100 for production
+export const TIMER_DURATION_SECONDS = IS_DEVELOPMENT ? 60 : 11 * 60; // 1 min for testing, 11 min for production
+
 export const getAppData = (): AppData => {
   try {
     const data = localStorage.getItem(STORAGE_KEY);
@@ -58,10 +63,7 @@ export const initializeSession = (sessionId: number): SessionData | null => {
 
   // Initialize with problems if not already done
   if (session.problems.length === 0) {
-    // For testing: 8 problems total (2 each of +, -, *, /)
-    // For production: use default 100 problems (25 each)
-    const totalProblems = process.env.NODE_ENV === 'development' ? 8 : 100;
-    session.problems = generateSessionProblems(totalProblems);
+    session.problems = generateSessionProblems(TOTAL_PROBLEMS);
     saveAppData(appData);
   }
 

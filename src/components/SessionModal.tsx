@@ -4,7 +4,7 @@ import Timer from './Timer';
 import TimerDisplay from './TimerDisplay';
 import ProblemSolver from './ProblemSolver';
 import Results from './Results';
-import { initializeSession } from '../utils/storage';
+import { initializeSession, TIMER_DURATION_SECONDS } from '../utils/storage';
 
 interface SessionModalProps {
   session: SessionData;
@@ -24,7 +24,7 @@ const SessionModal: React.FC<SessionModalProps> = ({
   const [startTime, setStartTime] = useState<Date | null>(null);
   const [sessionResult, setSessionResult] = useState<SessionResult | null>(null);
   const [initializedSession, setInitializedSession] = useState<SessionData | null>(null);
-  const [timeLeft, setTimeLeft] = useState(1 * 60); // 1 minute for testing, 11 minutes for production
+  const [timeLeft, setTimeLeft] = useState(TIMER_DURATION_SECONDS);
 
   useEffect(() => {
     if (isOpen && session) {
@@ -42,7 +42,7 @@ const SessionModal: React.FC<SessionModalProps> = ({
   const handleStartSession = () => {
     setSessionState('solving');
     setStartTime(new Date());
-    setTimeLeft(1 * 60); // Reset to 1 minute for testing
+    setTimeLeft(TIMER_DURATION_SECONDS); // Reset timer
   };
 
   const handleTimeUpdate = (newTimeLeft: number) => {
@@ -150,7 +150,7 @@ const SessionModal: React.FC<SessionModalProps> = ({
         {sessionState === 'solving' && (
           <>
             <Timer
-              duration={1 * 60} // 1 minute for testing
+              duration={TIMER_DURATION_SECONDS}
               onTimeUp={handleTimeUp}
               isActive={true}
               onTimeUpdate={handleTimeUpdate}
@@ -167,11 +167,15 @@ const SessionModal: React.FC<SessionModalProps> = ({
         )}
 
         {sessionState === 'finished' && sessionResult && (
-          <Results
-            result={sessionResult}
-            onClose={handleCloseResults}
-            onRetry={handleRetry}
-          />
+          <>
+            <button className="modal-close-button" onClick={handleCloseResults}>
+              ✕
+            </button>
+            <Results
+              result={sessionResult}
+              onClose={handleCloseResults}
+            />
+          </>
         )}
       </div>
     </div>

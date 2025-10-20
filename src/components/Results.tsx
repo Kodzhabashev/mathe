@@ -4,10 +4,9 @@ import { SessionResult, MathProblem } from '../types';
 interface ResultsProps {
   result: SessionResult;
   onClose: () => void;
-  onRetry?: () => void;
 }
 
-const Results: React.FC<ResultsProps> = ({ result, onClose, onRetry }) => {
+const Results: React.FC<ResultsProps> = ({ result, onClose }) => {
   const formatTime = (seconds: number): string => {
     const minutes = Math.floor(seconds / 60);
     const remainingSeconds = seconds % 60;
@@ -53,11 +52,6 @@ const Results: React.FC<ResultsProps> = ({ result, onClose, onRetry }) => {
         )}
 
         <div className="results-actions">
-          {onRetry && (
-            <button className="retry-button" onClick={onRetry}>
-              Try Again
-            </button>
-          )}
           <button className="close-button" onClick={onClose}>
             Close
           </button>

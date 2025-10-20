@@ -88,13 +88,13 @@ const ProblemSolver: React.FC<ProblemSolverProps> = ({
               placeholder=""
               maxLength={4}
             />
-            <div className="numpad-row">
-              <Numpad
-                onNumberClick={handleNumpadNumber}
-                onBackspace={handleNumpadBackspace}
-              />
-            </div>
           </div>
+        </div>
+        <div className="numpad-row">
+          <Numpad
+            onNumberClick={handleNumpadNumber}
+            onBackspace={handleNumpadBackspace}
+          />
         </div>
       </div>
 

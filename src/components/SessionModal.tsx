@@ -3,6 +3,7 @@ import { SessionData, SessionResult } from '../types';
 import Timer from './Timer';
 import ProblemSolver from './ProblemSolver';
 import Results from './Results';
+import { initializeSession } from '../utils/storage';
 
 interface SessionModalProps {
   session: SessionData;
@@ -21,15 +22,20 @@ const SessionModal: React.FC<SessionModalProps> = ({
   const [currentProblemIndex, setCurrentProblemIndex] = useState(0);
   const [startTime, setStartTime] = useState<Date | null>(null);
   const [sessionResult, setSessionResult] = useState<SessionResult | null>(null);
+  const [initializedSession, setInitializedSession] = useState<SessionData | null>(null);
 
   useEffect(() => {
-    if (isOpen) {
+    if (isOpen && session) {
+      // Initialize session with problems
+      const initSession = initializeSession(session.id);
+      setInitializedSession(initSession);
+
       setSessionState('start');
       setCurrentProblemIndex(0);
       setStartTime(null);
       setSessionResult(null);
     }
-  }, [isOpen]);
+  }, [isOpen, session]);
 
   const handleStartSession = () => {
     setSessionState('solving');
@@ -41,7 +47,7 @@ const SessionModal: React.FC<SessionModalProps> = ({
     const endTime = new Date();
     const timeSpent = startTime ? Math.floor((endTime.getTime() - startTime.getTime()) / 1000) : 0;
 
-    const answeredProblems = session.problems.slice(0, currentProblemIndex + 1);
+    const answeredProblems = (initializedSession?.problems || []).slice(0, currentProblemIndex + 1);
     const correctAnswers = answeredProblems.filter(p => p.isCorrect).length;
     const errors = answeredProblems.filter(p => !p.isCorrect);
 
@@ -61,7 +67,7 @@ const SessionModal: React.FC<SessionModalProps> = ({
 
   const handleProblemAnswered = (problemId: number, userAnswer: number) => {
     // Update the problem with user answer
-    const problem = session.problems.find(p => p.id === problemId);
+    const problem = initializedSession?.problems.find(p => p.id === problemId);
     if (problem) {
       problem.userAnswer = userAnswer;
       problem.isCorrect = userAnswer === problem.correctAnswer;
@@ -69,7 +75,8 @@ const SessionModal: React.FC<SessionModalProps> = ({
   };
 
   const handleNextProblem = () => {
-    if (currentProblemIndex < session.problems.length - 1) {
+    const problemsLength = initializedSession?.problems.length || 0;
+    if (currentProblemIndex < problemsLength - 1) {
       setCurrentProblemIndex(prev => prev + 1);
     } else {
       // All problems answered, but timer will handle completion
@@ -88,7 +95,7 @@ const SessionModal: React.FC<SessionModalProps> = ({
     setStartTime(null);
     setSessionResult(null);
     // Reset problems
-    session.problems.forEach(p => {
+    initializedSession?.problems.forEach(p => {
       p.userAnswer = undefined;
       p.isCorrect = undefined;
     });
@@ -121,7 +128,7 @@ const SessionModal: React.FC<SessionModalProps> = ({
               isActive={true}
             />
             <ProblemSolver
-              problems={session.problems}
+              problems={initializedSession?.problems || []}
               onProblemAnswered={handleProblemAnswered}
               currentProblemIndex={currentProblemIndex}
               onNextProblem={handleNextProblem}

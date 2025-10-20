@@ -1,4 +1,5 @@
 import { AppData, SessionData } from '../types';
+import { generateSessionProblems } from './mathGenerator';
 
 const STORAGE_KEY = 'math_exercise_app_data';
 
@@ -57,7 +58,6 @@ export const initializeSession = (sessionId: number): SessionData | null => {
 
   // Initialize with problems if not already done
   if (session.problems.length === 0) {
-    const { generateSessionProblems } = require('./mathGenerator');
     session.problems = generateSessionProblems();
     saveAppData(appData);
   }

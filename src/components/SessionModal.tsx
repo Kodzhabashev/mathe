@@ -5,7 +5,7 @@ import TimerDisplay from './TimerDisplay';
 import ProblemSolver from './ProblemSolver';
 import Results from './Results';
 import { useLanguage } from '../contexts/LanguageContext';
-import { initializeSession, TIMER_DURATION_SECONDS } from '../utils/storage';
+import { initializeSession, TIMER_DURATION_SECONDS, TOTAL_PROBLEMS } from '../utils/storage';
 
 interface SessionModalProps {
   session: SessionData;

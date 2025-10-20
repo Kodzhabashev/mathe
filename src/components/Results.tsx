@@ -46,7 +46,7 @@ const Results: React.FC<ResultsProps> = ({ result, onClose }) => {
               {result.errors.map((error, index) => (
                 <div key={error.id} className="error-item">
                   <span className="problem-text">{formatProblem(error)}</span>
-                  <span className="user-answer">{t('yourAnswerText', { answer: error.userAnswer })}</span>
+                  <span className="user-answer">{t('yourAnswerText', { answer: error.userAnswer || '?' })}</span>
                 </div>
               ))}
             </div>

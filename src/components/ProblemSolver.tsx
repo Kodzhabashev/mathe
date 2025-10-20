@@ -24,7 +24,6 @@ const ProblemSolver: React.FC<ProblemSolverProps> = ({
   timeLeft = TIMER_DURATION_SECONDS,
 }) => {
   const [currentAnswer, setCurrentAnswer] = useState('');
-  const [isInputFocused, setIsInputFocused] = useState(false);
   const { t } = useLanguage();
   const currentProblem = problems[currentProblemIndex];
 
@@ -47,14 +46,6 @@ const ProblemSolver: React.FC<ProblemSolverProps> = ({
 
   const handleNumpadBackspace = () => {
     setCurrentAnswer(prev => prev.slice(0, -1));
-  };
-
-  const handleInputFocus = () => {
-    setIsInputFocused(true);
-  };
-
-  const handleInputBlur = () => {
-    setIsInputFocused(false);
   };
 
 
@@ -96,17 +87,13 @@ const ProblemSolver: React.FC<ProblemSolverProps> = ({
               onChange={setCurrentAnswer}
               placeholder=""
               maxLength={4}
-              onFocus={handleInputFocus}
-              onBlur={handleInputBlur}
             />
-            {!isInputFocused && (
-              <div className="numpad-row">
-                <Numpad
-                  onNumberClick={handleNumpadNumber}
-                  onBackspace={handleNumpadBackspace}
-                />
-              </div>
-            )}
+            <div className="numpad-row">
+              <Numpad
+                onNumberClick={handleNumpadNumber}
+                onBackspace={handleNumpadBackspace}
+              />
+            </div>
           </div>
         </div>
       </div>

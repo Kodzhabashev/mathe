@@ -10,7 +10,7 @@ export interface Translations {
   sessionNumber: string;
   completedBadge: string;
   availableBadge: string;
-  scoreLabel: string;
+  sessionScoreLabel: string;
 
   // Session modal
   sessionTitle: string;
@@ -56,7 +56,7 @@ const translations: Record<Language, Translations> = {
     sessionNumber: 'Session {number}',
     completedBadge: '✓ Completed',
     availableBadge: 'Available',
-    scoreLabel: 'Score: {score}%',
+    sessionScoreLabel: 'Score: {score}%',
 
     // Session modal
     sessionTitle: 'Session {number}',
@@ -101,7 +101,7 @@ const translations: Record<Language, Translations> = {
     sessionNumber: 'Sitzung {number}',
     completedBadge: '✓ Abgeschlossen',
     availableBadge: 'Verfügbar',
-    scoreLabel: 'Punktestand: {score}%',
+    sessionScoreLabel: 'Punktestand: {score}%',
 
     // Session modal
     sessionTitle: 'Sitzung {number}',

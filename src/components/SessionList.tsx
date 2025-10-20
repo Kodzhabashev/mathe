@@ -88,7 +88,7 @@ const SessionList: React.FC<SessionListProps> = ({ sessions, onSessionUpdate }) 
             </div>
             {session.score !== undefined && (
               <div className="session-score">
-                {t('scoreLabel', { score: session.score.toFixed(1) })}
+                {t('sessionScoreLabel', { score: session.score.toFixed(1) })}
               </div>
             )}
           </div>

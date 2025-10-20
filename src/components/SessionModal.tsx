@@ -30,13 +30,9 @@ const SessionModal: React.FC<SessionModalProps> = ({
 
   useEffect(() => {
     if (isOpen && session) {
-      // Initialize session with problems
-      const initSession = initializeSession(session.id);
-      setInitializedSession(initSession);
-
-      if (session.completed && initSession && initSession.problems.length > 0) {
-        // For completed sessions, calculate results and show them immediately
-        const answeredProblems = initSession.problems;
+      if (session.completed && session.problems && session.problems.length > 0) {
+        // For completed sessions, use saved problems and calculate results immediately
+        const answeredProblems = session.problems;
         const correctAnswers = answeredProblems.filter(p => p.userAnswer === p.correctAnswer).length;
         const errors = answeredProblems.filter(p => p.userAnswer !== p.correctAnswer);
 
@@ -52,7 +48,12 @@ const SessionModal: React.FC<SessionModalProps> = ({
         setSessionResult(result);
         setSessionState('finished');
         setCurrentProblemIndex(answeredProblems.length - 1); // Set to last problem
+        setInitializedSession(session); // Use the session directly
       } else {
+        // For new sessions, initialize with problems
+        const initSession = initializeSession(session.id);
+        setInitializedSession(initSession);
+
         // For new sessions, start normally
         setSessionState('start');
         setCurrentProblemIndex(0);

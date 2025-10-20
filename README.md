@@ -46,8 +46,7 @@ Each session includes problems evenly distributed across four categories:
 
 ## ⏱️ Session Structure
 
-- **Development Mode**: 8 problems (2 of each type) in 1 minute
-- **Production Mode**: 100 problems (25 of each type) in 11 minutes
+- **Session Length**: 100 problems (25 of each type) in 11 minutes
 - **Tablet Input**: Touch-friendly number input
 - **Skip Functionality**: Move challenging problems to the end of the queue
 
@@ -65,6 +64,42 @@ Language preference is automatically saved and remembered between sessions.
 - **Styling**: CSS with responsive design
 - **Storage**: Browser localStorage for progress tracking
 - **Deployment**: Single-page application, no server required
+
+## 🚀 Deployment
+
+This application is built as a static single-page application that can be deployed to any static web hosting service.
+
+### Building for Production
+
+1. **Install Dependencies**:
+   ```bash
+   npm install
+   ```
+
+2. **Build the Application**:
+   ```bash
+   npm run build
+   ```
+   This creates an optimized production build in the `build/` folder.
+
+3. **Deploy the Static Files**:
+   Upload the entire contents of the `build/` folder to your web server or hosting service.
+
+### Hosting Options
+
+- **Netlify**: Drag and drop the `build/` folder or connect your GitHub repository
+- **Vercel**: Deploy directly from GitHub or upload the `build/` folder
+- **GitHub Pages**: Use GitHub Actions to automatically build and deploy
+- **AWS S3 + CloudFront**: Static hosting with CDN for global distribution
+- **Traditional Web Hosting**: Upload files via FTP to any web server
+
+### Deployment Checklist
+
+- [ ] Run `npm run build` successfully
+- [ ] Verify `build/index.html` exists
+- [ ] Upload all files from `build/` folder (not the folder itself)
+- [ ] Ensure the hosting service serves `index.html` as the default file
+- [ ] Test the deployed application in a web browser
 
 ## 📱 Device Compatibility
 

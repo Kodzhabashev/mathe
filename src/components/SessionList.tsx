@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { SessionData, SessionResult } from '../types';
 import SessionModal from './SessionModal';
 import { useLanguage } from '../contexts/LanguageContext';
-import { updateSession, initializeSession, TOTAL_PROBLEMS, TIMER_DURATION_SECONDS } from '../utils/storage';
+import { updateSession, TOTAL_PROBLEMS, TIMER_DURATION_SECONDS } from '../utils/storage';
 
 interface SessionListProps {
   sessions: SessionData[];

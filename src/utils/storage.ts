@@ -4,9 +4,8 @@ import { generateSessionProblems } from './mathGenerator';
 const STORAGE_KEY = 'math_exercise_app_data';
 
 // Configuration constants
-const IS_DEVELOPMENT = process.env.NODE_ENV === 'development';
-export const TOTAL_PROBLEMS = IS_DEVELOPMENT ? 8 : 100; // 8 for testing, 100 for production
-export const TIMER_DURATION_SECONDS = IS_DEVELOPMENT ? 60 : 11 * 60; // 1 min for testing, 11 min for production
+export const TOTAL_PROBLEMS = 100; // 100 math problems per session
+export const TIMER_DURATION_SECONDS = 11 * 60; // 11 minutes per session
 
 export const getAppData = (): AppData => {
   try {

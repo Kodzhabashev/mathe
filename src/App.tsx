@@ -1,24 +1,30 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState, useEffect } from 'react';
+import SessionList from './components/SessionList';
+import { getAppData } from './utils/storage';
+import { AppData } from './types';
 import './App.css';
 
 function App() {
+  const [appData, setAppData] = useState<AppData>({ sessions: [] });
+
+  useEffect(() => {
+    // Load app data on component mount
+    const data = getAppData();
+    setAppData(data);
+  }, []);
+
+  const handleSessionUpdate = () => {
+    // Reload app data after session updates
+    const data = getAppData();
+    setAppData(data);
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <SessionList
+        sessions={appData.sessions}
+        onSessionUpdate={handleSessionUpdate}
+      />
     </div>
   );
 }

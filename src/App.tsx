@@ -21,6 +21,14 @@ function App() {
 
   return (
     <div className="App">
+      <header className="app-header">
+        <h1 className="app-title">
+          <span className="math-icon">🧮</span>
+          Mathematical Exercises
+          <span className="math-icon">🧮</span>
+        </h1>
+        <p className="app-subtitle">Practice your math skills with timed exercises</p>
+      </header>
       <SessionList
         sessions={appData.sessions}
         onSessionUpdate={handleSessionUpdate}

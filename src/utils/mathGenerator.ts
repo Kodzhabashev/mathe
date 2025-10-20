@@ -68,17 +68,24 @@ export const generateMathProblem = (
   };
 };
 
-export const generateSessionProblems = (): MathProblem[] => {
+export const generateSessionProblems = (totalProblems: number = 100): MathProblem[] => {
   const problems: MathProblem[] = [];
 
-  // Generate 25 problems for each operation
+  // Generate problems divided equally among 4 operations
   const operations: ('+' | '-' | '*' | '/')[] = ['+', '-', '*', '/'];
+  const problemsPerOperation = Math.floor(totalProblems / operations.length);
 
   operations.forEach(operation => {
-    for (let i = 0; i < 25; i++) {
+    for (let i = 0; i < problemsPerOperation; i++) {
       problems.push(generateMathProblem(operation));
     }
   });
+
+  // Add remaining problems to the first operation if total doesn't divide evenly
+  const remainingProblems = totalProblems % operations.length;
+  for (let i = 0; i < remainingProblems; i++) {
+    problems.push(generateMathProblem(operations[0]));
+  }
 
   // Shuffle the problems
   for (let i = problems.length - 1; i > 0; i--) {

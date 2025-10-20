@@ -24,7 +24,7 @@ const SessionModal: React.FC<SessionModalProps> = ({
   const [startTime, setStartTime] = useState<Date | null>(null);
   const [sessionResult, setSessionResult] = useState<SessionResult | null>(null);
   const [initializedSession, setInitializedSession] = useState<SessionData | null>(null);
-  const [timeLeft, setTimeLeft] = useState(11 * 60); // 11 minutes in seconds
+  const [timeLeft, setTimeLeft] = useState(1 * 60); // 1 minute for testing, 11 minutes for production
 
   useEffect(() => {
     if (isOpen && session) {
@@ -42,7 +42,7 @@ const SessionModal: React.FC<SessionModalProps> = ({
   const handleStartSession = () => {
     setSessionState('solving');
     setStartTime(new Date());
-    setTimeLeft(11 * 60); // Reset to 11 minutes
+    setTimeLeft(1 * 60); // Reset to 1 minute for testing
   };
 
   const handleTimeUpdate = (newTimeLeft: number) => {
@@ -150,7 +150,7 @@ const SessionModal: React.FC<SessionModalProps> = ({
         {sessionState === 'solving' && (
           <>
             <Timer
-              duration={11 * 60} // 11 minutes in seconds
+              duration={1 * 60} // 1 minute for testing
               onTimeUp={handleTimeUp}
               isActive={true}
               onTimeUpdate={handleTimeUpdate}

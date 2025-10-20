@@ -20,6 +20,47 @@ body {
   padding: 20px;
 }
 
+/* App Header Styles */
+.app-header {
+  text-align: center;
+  margin-bottom: 30px;
+  padding: 20px 0;
+}
+
+.app-title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #2c3e50;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+}
+
+.math-icon {
+  font-size: 2rem;
+  animation: bounce 2s infinite;
+}
+
+.app-subtitle {
+  font-size: 1.1rem;
+  color: #7f8c8d;
+  margin: 0;
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-10px);
+  }
+  60% {
+    transform: translateY(-5px);
+  }
+}
+
 /* Session List Styles */
 .session-list {
   max-width: 1200px;
@@ -197,30 +238,51 @@ body {
 
 .progress-bar {
   width: 100%;
-  height: 40px;
+  height: 50px;
   background-color: #ecf0f1;
-  border-radius: 20px;
+  border-radius: 25px;
   margin-bottom: 20px;
   position: relative;
   overflow: hidden;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
+  border: 2px solid #bdc3c7;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .progress-fill {
   height: 100%;
-  background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
-  border-radius: 15px;
-  transition: width 0.3s ease;
+  background: linear-gradient(90deg, #3498db 0%, #2980b9 100%);
+  border-radius: 0;
+  transition: width 0.5s ease-in-out;
+  position: relative;
+}
+
+.progress-fill::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.3) 50%, transparent 100%);
+  animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
 }
 
 .progress-text {
   color: #2c3e50;
   font-weight: bold;
-  font-size: 0.9rem;
+  font-size: 1rem;
   z-index: 2;
   position: relative;
+  margin-left: 20px;
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
 }
 
 .problem-display {
@@ -279,6 +341,12 @@ body {
 
 .answer-input {
   margin-bottom: 20px;
+}
+
+.numpad-row {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
 }
 
 .numeric-input-container {

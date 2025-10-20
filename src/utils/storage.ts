@@ -58,7 +58,10 @@ export const initializeSession = (sessionId: number): SessionData | null => {
 
   // Initialize with problems if not already done
   if (session.problems.length === 0) {
-    session.problems = generateSessionProblems();
+    // For testing: 8 problems total (2 each of +, -, *, /)
+    // For production: use default 100 problems (25 each)
+    const totalProblems = process.env.NODE_ENV === 'development' ? 8 : 100;
+    session.problems = generateSessionProblems(totalProblems);
     saveAppData(appData);
   }
 

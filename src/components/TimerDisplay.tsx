@@ -12,9 +12,9 @@ const TimerDisplay: React.FC<TimerDisplayProps> = ({ timeLeft }) => {
   };
 
   const getTimerColor = (): string => {
-    if (timeLeft <= 60) return '#e74c3c'; // Red for last minute
-    if (timeLeft <= 180) return '#f39c12'; // Orange for last 3 minutes
-    return '#27ae60'; // Green otherwise
+    if (timeLeft <= 30) return '#e74c3c'; // Red for last 30 seconds
+    if (timeLeft <= 60) return '#f39c12'; // Orange for last minute
+    return '#3498db'; // Blue otherwise (always visible, different from green)
   };
 
   return (

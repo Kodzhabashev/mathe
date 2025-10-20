@@ -52,13 +52,14 @@ const SessionList: React.FC<SessionListProps> = ({ sessions, onSessionUpdate }) 
     setShowResults(null);
   };
 
-  const handleSessionComplete = (result: SessionResult) => {
+  const handleSessionComplete = (result: SessionResult, problems?: any[]) => {
     // Update session as completed
     updateSession(result.sessionId, {
       completed: true,
       score: result.accuracy,
       timeSpent: result.timeSpent,
       endTime: new Date(),
+      problems: problems, // Save the problems with answers
     });
     onSessionUpdate();
   };

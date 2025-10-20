@@ -11,7 +11,7 @@ interface SessionModalProps {
   session: SessionData;
   isOpen: boolean;
   onClose: () => void;
-  onSessionComplete: (result: SessionResult) => void;
+  onSessionComplete: (result: SessionResult, problems?: any[]) => void;
 }
 
 const SessionModal: React.FC<SessionModalProps> = ({
@@ -71,7 +71,7 @@ const SessionModal: React.FC<SessionModalProps> = ({
 
     setSessionResult(result);
     setSessionState('finished');
-    onSessionComplete(result);
+    onSessionComplete(result, initializedSession?.problems);
   };
 
   const handleProblemAnswered = (problemId: number, userAnswer: number) => {

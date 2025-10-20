@@ -5,9 +5,10 @@ interface TimerProps {
   duration: number; // in seconds
   onTimeUp: () => void;
   isActive: boolean;
+  onTimeUpdate?: (timeLeft: number) => void;
 }
 
-const Timer: React.FC<TimerProps> = ({ duration, onTimeUp, isActive }) => {
+const Timer: React.FC<TimerProps> = ({ duration, onTimeUp, isActive, onTimeUpdate }) => {
   const [timeLeft, setTimeLeft] = useState(duration);
   const [state, setState] = useState<TimerState>('idle');
 
@@ -26,12 +27,15 @@ const Timer: React.FC<TimerProps> = ({ duration, onTimeUp, isActive }) => {
     if (state === 'running' && timeLeft > 0) {
       interval = setInterval(() => {
         setTimeLeft(prev => {
-          if (prev <= 1) {
+          const newTime = prev - 1;
+          if (newTime <= 0) {
             setState('finished');
             onTimeUp();
+            onTimeUpdate?.(0);
             return 0;
           }
-          return prev - 1;
+          onTimeUpdate?.(newTime);
+          return newTime;
         });
       }, 1000);
     }
@@ -39,7 +43,7 @@ const Timer: React.FC<TimerProps> = ({ duration, onTimeUp, isActive }) => {
     return () => {
       if (interval) clearInterval(interval);
     };
-  }, [timeLeft, onTimeUp]);
+  }, [state, timeLeft, onTimeUp, onTimeUpdate]);
 
   // Timer is hidden, only used for internal logic
   return null;

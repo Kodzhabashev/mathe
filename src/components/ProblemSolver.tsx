@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { MathProblem } from '../types';
 import NumericInput from './NumericInput';
+import TimerDisplay from './TimerDisplay';
 
 interface ProblemSolverProps {
   problems: MathProblem[];
@@ -8,6 +9,7 @@ interface ProblemSolverProps {
   currentProblemIndex: number;
   onNextProblem: () => void;
   onSkipProblem?: () => void;
+  timeLeft?: number;
 }
 
 const ProblemSolver: React.FC<ProblemSolverProps> = ({
@@ -16,6 +18,7 @@ const ProblemSolver: React.FC<ProblemSolverProps> = ({
   currentProblemIndex,
   onNextProblem,
   onSkipProblem,
+  timeLeft = 11 * 60,
 }) => {
   const [currentAnswer, setCurrentAnswer] = useState('');
   const currentProblem = problems[currentProblemIndex];
@@ -37,14 +40,8 @@ const ProblemSolver: React.FC<ProblemSolverProps> = ({
     setCurrentAnswer(prev => (prev + number.toString()).slice(0, 4));
   };
 
-  const handleNumpadClear = () => {
-    setCurrentAnswer('');
-  };
-
-  const handleNumpadEnter = () => {
-    if (currentAnswer.trim()) {
-      handleSubmitAnswer();
-    }
+  const handleNumpadBackspace = () => {
+    setCurrentAnswer(prev => prev.slice(0, -1));
   };
 
   const handleSkip = () => {
@@ -67,6 +64,7 @@ const ProblemSolver: React.FC<ProblemSolverProps> = ({
         <span className="progress-text">
           {currentProblemIndex + 1} / {problems.length}
         </span>
+        <TimerDisplay timeLeft={timeLeft} />
       </div>
 
       <div className="problem-display">
@@ -78,18 +76,17 @@ const ProblemSolver: React.FC<ProblemSolverProps> = ({
           <span className="operation">{currentProblem.operation}</span>
           <span className="operand">{currentProblem.operand2}</span>
           <span className="equals">=</span>
-        </div>
-        <div className="answer-input">
-          <NumericInput
-            value={currentAnswer}
-            onChange={setCurrentAnswer}
-            placeholder="Enter answer"
-            maxLength={4}
-            showNumpad={true}
-            onNumpadNumber={handleNumpadNumber}
-            onNumpadClear={handleNumpadClear}
-            onNumpadEnter={handleNumpadEnter}
-          />
+          <div className="inline-input">
+            <NumericInput
+              value={currentAnswer}
+              onChange={setCurrentAnswer}
+              placeholder=""
+              maxLength={4}
+              showNumpad={true}
+              onNumpadNumber={handleNumpadNumber}
+              onNumpadBackspace={handleNumpadBackspace}
+            />
+          </div>
         </div>
       </div>
 

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { SessionData, SessionResult } from '../types';
 import Timer from './Timer';
+import TimerDisplay from './TimerDisplay';
 import ProblemSolver from './ProblemSolver';
 import Results from './Results';
 import { initializeSession } from '../utils/storage';
@@ -23,6 +24,7 @@ const SessionModal: React.FC<SessionModalProps> = ({
   const [startTime, setStartTime] = useState<Date | null>(null);
   const [sessionResult, setSessionResult] = useState<SessionResult | null>(null);
   const [initializedSession, setInitializedSession] = useState<SessionData | null>(null);
+  const [timeLeft, setTimeLeft] = useState(11 * 60); // 11 minutes in seconds
 
   useEffect(() => {
     if (isOpen && session) {
@@ -40,6 +42,11 @@ const SessionModal: React.FC<SessionModalProps> = ({
   const handleStartSession = () => {
     setSessionState('solving');
     setStartTime(new Date());
+    setTimeLeft(11 * 60); // Reset to 11 minutes
+  };
+
+  const handleTimeUpdate = (newTimeLeft: number) => {
+    setTimeLeft(newTimeLeft);
   };
 
   const handleTimeUp = () => {
@@ -146,6 +153,7 @@ const SessionModal: React.FC<SessionModalProps> = ({
               duration={11 * 60} // 11 minutes in seconds
               onTimeUp={handleTimeUp}
               isActive={true}
+              onTimeUpdate={handleTimeUpdate}
             />
             <ProblemSolver
               problems={initializedSession?.problems || []}
@@ -153,6 +161,7 @@ const SessionModal: React.FC<SessionModalProps> = ({
               currentProblemIndex={currentProblemIndex}
               onNextProblem={handleNextProblem}
               onSkipProblem={handleSkipProblem}
+              timeLeft={timeLeft}
             />
           </>
         )}

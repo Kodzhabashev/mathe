@@ -9,8 +9,7 @@ interface NumericInputProps {
   className?: string;
   showNumpad?: boolean;
   onNumpadNumber?: (number: number) => void;
-  onNumpadClear?: () => void;
-  onNumpadEnter?: () => void;
+  onNumpadBackspace?: () => void;
 }
 
 const NumericInput: React.FC<NumericInputProps> = ({
@@ -21,8 +20,7 @@ const NumericInput: React.FC<NumericInputProps> = ({
   className = '',
   showNumpad = false,
   onNumpadNumber,
-  onNumpadClear,
-  onNumpadEnter
+  onNumpadBackspace
 }) => {
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -79,11 +77,10 @@ const NumericInput: React.FC<NumericInputProps> = ({
           ✕
         </button>
       )}
-      {showNumpad && onNumpadNumber && onNumpadClear && onNumpadEnter && (
+      {showNumpad && onNumpadNumber && onNumpadBackspace && (
         <Numpad
           onNumberClick={onNumpadNumber}
-          onClear={onNumpadClear}
-          onEnter={onNumpadEnter}
+          onBackspace={onNumpadBackspace}
         />
       )}
     </div>

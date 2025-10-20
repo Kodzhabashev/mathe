@@ -2,15 +2,13 @@ import React from 'react';
 
 interface NumpadProps {
   onNumberClick: (number: number) => void;
-  onClear: () => void;
-  onEnter: () => void;
+  onBackspace: () => void;
   disabled?: boolean;
 }
 
 const Numpad: React.FC<NumpadProps> = ({
   onNumberClick,
-  onClear,
-  onEnter,
+  onBackspace,
   disabled = false
 }) => {
   const handleNumberClick = (number: number) => {
@@ -19,22 +17,16 @@ const Numpad: React.FC<NumpadProps> = ({
     }
   };
 
-  const handleClear = () => {
+  const handleBackspace = () => {
     if (!disabled) {
-      onClear();
-    }
-  };
-
-  const handleEnter = () => {
-    if (!disabled) {
-      onEnter();
+      onBackspace();
     }
   };
 
   return (
     <div className="numpad">
       <div className="numpad-grid">
-        {[1, 2, 3, 4, 5, 6, 7, 8, 9, 0].map(number => (
+        {[1, 2, 3, 4, 5, 6, 7, 8, 9].map(number => (
           <button
             key={number}
             type="button"
@@ -45,23 +37,21 @@ const Numpad: React.FC<NumpadProps> = ({
             {number}
           </button>
         ))}
-      </div>
-      <div className="numpad-actions">
         <button
           type="button"
-          className="numpad-button clear-button"
-          onClick={handleClear}
+          className="numpad-button"
+          onClick={() => handleNumberClick(0)}
           disabled={disabled}
         >
-          Clear
+          0
         </button>
         <button
           type="button"
-          className="numpad-button enter-button"
-          onClick={handleEnter}
+          className="numpad-button backspace-button"
+          onClick={handleBackspace}
           disabled={disabled}
         >
-          Enter
+          ⌫
         </button>
       </div>
     </div>

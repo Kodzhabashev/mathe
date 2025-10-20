@@ -67,7 +67,7 @@ const ProblemSolver: React.FC<ProblemSolverProps> = ({
       <div className="progress-bar">
         <div className="progress-fill" style={{ width: `${progress}%` }}></div>
         <span className="progress-text">
-          {currentProblemIndex + 1} / {problems.length}
+          {currentProblemIndex} / {problems.length}
         </span>
         <TimerDisplay timeLeft={timeLeft} />
       </div>

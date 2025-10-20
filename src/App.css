@@ -365,8 +365,11 @@ body {
 .inline-input .numeric-input {
   font-size: 2rem;
   padding: 5px 10px;
-  width: 80px;
+  width: 100px;
+  min-width: 100px;
+  max-width: 100px;
   text-align: center;
+  box-sizing: border-box;
 }
 
 .answer-input {
@@ -540,6 +543,7 @@ body {
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   gap: 20px;
   margin-bottom: 30px;
+  flex-shrink: 0;
 }
 
 .summary-stat {

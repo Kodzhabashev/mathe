@@ -34,10 +34,31 @@ const SessionModal: React.FC<SessionModalProps> = ({
       const initSession = initializeSession(session.id);
       setInitializedSession(initSession);
 
-      setSessionState('start');
-      setCurrentProblemIndex(0);
-      setStartTime(null);
-      setSessionResult(null);
+      if (session.completed && initSession && initSession.problems.length > 0) {
+        // For completed sessions, calculate results and show them immediately
+        const answeredProblems = initSession.problems;
+        const correctAnswers = answeredProblems.filter(p => p.userAnswer === p.correctAnswer).length;
+        const errors = answeredProblems.filter(p => p.userAnswer !== p.correctAnswer);
+
+        const result: SessionResult = {
+          sessionId: session.id,
+          correctAnswers,
+          totalProblems: answeredProblems.length,
+          timeSpent: session.timeSpent || 0,
+          errors,
+          accuracy: answeredProblems.length > 0 ? (correctAnswers / answeredProblems.length) * 100 : 0,
+        };
+
+        setSessionResult(result);
+        setSessionState('finished');
+        setCurrentProblemIndex(answeredProblems.length - 1); // Set to last problem
+      } else {
+        // For new sessions, start normally
+        setSessionState('start');
+        setCurrentProblemIndex(0);
+        setStartTime(null);
+        setSessionResult(null);
+      }
     }
   }, [isOpen, session]);
 

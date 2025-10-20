@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { SessionData, SessionResult } from '../types';
 import SessionModal from './SessionModal';
-import Results from './Results';
 import { useLanguage } from '../contexts/LanguageContext';
 import { updateSession, initializeSession, TOTAL_PROBLEMS, TIMER_DURATION_SECONDS } from '../utils/storage';
 
@@ -13,43 +12,17 @@ interface SessionListProps {
 const SessionList: React.FC<SessionListProps> = ({ sessions, onSessionUpdate }) => {
   const [selectedSession, setSelectedSession] = useState<SessionData | null>(null);
   const [modalOpen, setModalOpen] = useState(false);
-  const [showResults, setShowResults] = useState<SessionResult | null>(null);
   const { t } = useLanguage();
 
   const handleSessionClick = (session: SessionData) => {
-    if (session.completed) {
-      // Show results for completed session
-      const sessionData = initializeSession(session.id);
-      if (sessionData && sessionData.problems.length > 0) {
-        const answeredProblems = sessionData.problems;
-        const correctAnswers = answeredProblems.filter(p => p.userAnswer === p.correctAnswer).length;
-        const errors = answeredProblems.filter(p => p.userAnswer !== p.correctAnswer);
-
-        const result: SessionResult = {
-          sessionId: session.id,
-          correctAnswers,
-          totalProblems: answeredProblems.length,
-          timeSpent: session.timeSpent || 0,
-          errors,
-          accuracy: answeredProblems.length > 0 ? (correctAnswers / answeredProblems.length) * 100 : 0,
-        };
-
-        setShowResults(result);
-      }
-    } else {
-      // Start new session
-      setSelectedSession(session);
-      setModalOpen(true);
-    }
+    // Always open the session modal - it will handle completed sessions
+    setSelectedSession(session);
+    setModalOpen(true);
   };
 
   const handleModalClose = () => {
     setModalOpen(false);
     setSelectedSession(null);
-  };
-
-  const handleResultsClose = () => {
-    setShowResults(null);
   };
 
   const handleSessionComplete = (result: SessionResult, problems?: any[]) => {
@@ -103,20 +76,6 @@ const SessionList: React.FC<SessionListProps> = ({ sessions, onSessionUpdate }) 
           onClose={handleModalClose}
           onSessionComplete={handleSessionComplete}
         />
-      )}
-
-      {showResults && (
-        <div className="session-modal-overlay">
-          <div className="session-modal results-modal-size">
-            <button className="modal-close-button" onClick={handleResultsClose}>
-              ✕
-            </button>
-            <Results
-              result={showResults}
-              onClose={handleResultsClose}
-            />
-          </div>
-        </div>
       )}
     </div>
   );

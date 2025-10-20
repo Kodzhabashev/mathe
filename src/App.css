@@ -334,22 +334,30 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 15px;
+  gap: 10px;
   flex-wrap: wrap;
+  min-height: 60px;
 }
 
 .operand {
-  min-width: 60px;
+  width: 80px;
   text-align: center;
+  display: inline-block;
 }
 
 .operation {
   color: #e74c3c;
   font-size: 2rem;
+  width: 40px;
+  text-align: center;
+  display: inline-block;
 }
 
 .equals {
   color: #2c3e50;
+  width: 30px;
+  text-align: center;
+  display: inline-block;
 }
 
 .inline-input {

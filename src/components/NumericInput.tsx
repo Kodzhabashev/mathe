@@ -1,4 +1,5 @@
 import React, { useRef } from 'react';
+import Numpad from './Numpad';
 
 interface NumericInputProps {
   value: string;
@@ -6,6 +7,10 @@ interface NumericInputProps {
   placeholder?: string;
   maxLength?: number;
   className?: string;
+  showNumpad?: boolean;
+  onNumpadNumber?: (number: number) => void;
+  onNumpadClear?: () => void;
+  onNumpadEnter?: () => void;
 }
 
 const NumericInput: React.FC<NumericInputProps> = ({
@@ -13,7 +18,11 @@ const NumericInput: React.FC<NumericInputProps> = ({
   onChange,
   placeholder = '',
   maxLength = 4,
-  className = ''
+  className = '',
+  showNumpad = false,
+  onNumpadNumber,
+  onNumpadClear,
+  onNumpadEnter
 }) => {
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -69,6 +78,13 @@ const NumericInput: React.FC<NumericInputProps> = ({
         >
           ✕
         </button>
+      )}
+      {showNumpad && onNumpadNumber && onNumpadClear && onNumpadEnter && (
+        <Numpad
+          onNumberClick={onNumpadNumber}
+          onClear={onNumpadClear}
+          onEnter={onNumpadEnter}
+        />
       )}
     </div>
   );

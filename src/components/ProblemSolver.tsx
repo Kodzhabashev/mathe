@@ -7,6 +7,7 @@ interface ProblemSolverProps {
   onProblemAnswered: (problemId: number, userAnswer: number) => void;
   currentProblemIndex: number;
   onNextProblem: () => void;
+  onSkipProblem?: () => void;
 }
 
 const ProblemSolver: React.FC<ProblemSolverProps> = ({
@@ -14,6 +15,7 @@ const ProblemSolver: React.FC<ProblemSolverProps> = ({
   onProblemAnswered,
   currentProblemIndex,
   onNextProblem,
+  onSkipProblem,
 }) => {
   const [currentAnswer, setCurrentAnswer] = useState('');
   const currentProblem = problems[currentProblemIndex];
@@ -28,6 +30,26 @@ const ProblemSolver: React.FC<ProblemSolverProps> = ({
       onProblemAnswered(currentProblem.id, userAnswer);
       setCurrentAnswer('');
       onNextProblem();
+    }
+  };
+
+  const handleNumpadNumber = (number: number) => {
+    setCurrentAnswer(prev => (prev + number.toString()).slice(0, 4));
+  };
+
+  const handleNumpadClear = () => {
+    setCurrentAnswer('');
+  };
+
+  const handleNumpadEnter = () => {
+    if (currentAnswer.trim()) {
+      handleSubmitAnswer();
+    }
+  };
+
+  const handleSkip = () => {
+    if (onSkipProblem) {
+      onSkipProblem();
     }
   };
 
@@ -63,6 +85,10 @@ const ProblemSolver: React.FC<ProblemSolverProps> = ({
             onChange={setCurrentAnswer}
             placeholder="Enter answer"
             maxLength={4}
+            showNumpad={true}
+            onNumpadNumber={handleNumpadNumber}
+            onNumpadClear={handleNumpadClear}
+            onNumpadEnter={handleNumpadEnter}
           />
         </div>
       </div>
@@ -75,6 +101,14 @@ const ProblemSolver: React.FC<ProblemSolverProps> = ({
         >
           Submit Answer
         </button>
+        {onSkipProblem && (
+          <button
+            className="skip-button"
+            onClick={handleSkip}
+          >
+            Skip Problem
+          </button>
+        )}
       </div>
     </div>
   );

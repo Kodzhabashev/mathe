@@ -547,3 +547,141 @@ body {
     padding: 15px 20px;
   }
 }
+
+/* Numpad Styles */
+.numpad {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.numpad-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  max-width: 200px;
+}
+
+.numpad-actions {
+  display: flex;
+  gap: 8px;
+  width: 100%;
+  max-width: 200px;
+}
+
+.numpad-button {
+  width: 50px;
+  height: 50px;
+  border: 2px solid #bdc3c7;
+  border-radius: 8px;
+  background: white;
+  font-size: 1.2rem;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  color: #2c3e50;
+}
+
+.numpad-button:hover:not(:disabled) {
+  background: #ecf0f1;
+  border-color: #3498db;
+  transform: translateY(-1px);
+}
+
+.numpad-button:active:not(:disabled) {
+  transform: translateY(0);
+  background: #3498db;
+  color: white;
+}
+
+.numpad-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.numpad-button.clear-button {
+  background: #e74c3c;
+  color: white;
+  border-color: #e74c3c;
+}
+
+.numpad-button.clear-button:hover:not(:disabled) {
+  background: #c0392b;
+  border-color: #c0392b;
+}
+
+.numpad-button.enter-button {
+  background: #27ae60;
+  color: white;
+  border-color: #27ae60;
+}
+
+.numpad-button.enter-button:hover:not(:disabled) {
+  background: #2ecc71;
+  border-color: #2ecc71;
+}
+
+/* Skip Button Styles */
+.skip-button {
+  background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  margin-left: 10px;
+}
+
+.skip-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Responsive Numpad Styles */
+@media (max-width: 768px) {
+  .numpad-grid {
+    max-width: 180px;
+  }
+
+  .numpad-button {
+    width: 45px;
+    height: 45px;
+    font-size: 1.1rem;
+  }
+
+  .skip-button {
+    padding: 8px 16px;
+    font-size: 0.8rem;
+    margin-left: 5px;
+  }
+}
+
+@media (max-width: 480px) {
+  .numpad-grid {
+    max-width: 160px;
+  }
+
+  .numpad-button {
+    width: 40px;
+    height: 40px;
+    font-size: 1rem;
+  }
+
+  .numpad-actions {
+    max-width: 160px;
+  }
+
+  .skip-button {
+    padding: 6px 12px;
+    font-size: 0.7rem;
+    margin-left: 3px;
+  }
+}

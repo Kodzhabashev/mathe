@@ -84,6 +84,26 @@ const SessionModal: React.FC<SessionModalProps> = ({
     }
   };
 
+  const handleSkipProblem = () => {
+    if (initializedSession && initializedSession.problems.length > 0) {
+      const currentProblem = initializedSession.problems[currentProblemIndex];
+
+      // Remove the current problem from its position
+      initializedSession.problems.splice(currentProblemIndex, 1);
+
+      // Add it to the end
+      initializedSession.problems.push(currentProblem);
+
+      // If we're not at the last problem, stay at current index (which now contains the next problem)
+      // If we're at the last problem, move to the new last problem (which is the skipped one)
+      const newProblemsLength = initializedSession.problems.length;
+      if (currentProblemIndex >= newProblemsLength - 1) {
+        setCurrentProblemIndex(newProblemsLength - 1);
+      }
+      // If we're not at the end, the next problem automatically shifts into the current position
+    }
+  };
+
   const handleCloseResults = () => {
     onClose();
   };
@@ -132,6 +152,7 @@ const SessionModal: React.FC<SessionModalProps> = ({
               onProblemAnswered={handleProblemAnswered}
               currentProblemIndex={currentProblemIndex}
               onNextProblem={handleNextProblem}
+              onSkipProblem={handleSkipProblem}
             />
           </>
         )}

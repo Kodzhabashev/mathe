@@ -5,7 +5,7 @@ const STORAGE_KEY = 'math_exercise_app_data';
 
 // Configuration constants
 export const TOTAL_PROBLEMS = 100; // 100 math problems per session
-export const TIMER_DURATION_SECONDS = 11 * 60; // 11 minutes per session
+export const TIMER_DURATION_SECONDS = 10 * 60; // 10 minutes per session
 
 export const getAppData = (): AppData => {
   try {

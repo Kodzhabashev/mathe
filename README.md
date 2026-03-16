@@ -46,7 +46,7 @@ Each session includes problems evenly distributed across four categories:
 
 ## ⏱️ Session Structure
 
-- **Session Length**: 100 problems (25 of each type) in 11 minutes
+- **Session Length**: 100 problems (25 of each type) in 10 minutes
 - **Tablet Input**: Touch-friendly number input
 - **Skip Functionality**: Move challenging problems to the end of the queue
 

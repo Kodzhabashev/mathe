@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { SessionData, SessionResult } from '../types';
 import SessionModal from './SessionModal';
 import { useLanguage } from '../contexts/LanguageContext';
-import { updateSession, TOTAL_PROBLEMS, TIMER_DURATION_SECONDS } from '../utils/storage';
+import { updateSession, TOTAL_PROBLEMS } from '../utils/storage';
 
 interface SessionListProps {
   sessions: SessionData[];
@@ -37,12 +37,10 @@ const SessionList: React.FC<SessionListProps> = ({ sessions, onSessionUpdate }) 
     onSessionUpdate();
   };
 
-  const timerMinutes = Math.floor(TIMER_DURATION_SECONDS / 60);
-
   return (
     <div className="session-list">
       <p className="session-description">
-        {t('sessionDescription', { problems: TOTAL_PROBLEMS, minutes: timerMinutes })}
+        {t('sessionDescription', { problems: TOTAL_PROBLEMS, minMinutes: 5, maxMinutes: 15 })}
       </p>
 
       <div className="sessions-grid">

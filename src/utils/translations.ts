@@ -38,6 +38,8 @@ export interface Translations {
 
   // Timer
   timerLabel: string;
+  timerSelectLabel: string;
+  timerMinutesOption: string;
 
   // Language selector
   selectLanguage: string;
@@ -52,7 +54,7 @@ const translations: Record<Language, Translations> = {
     appSubtitle: 'Practice your math skills with timed exercises',
 
     // Session list
-    sessionDescription: 'Select a session to begin. Each session contains {problems} problems with a {minutes}-minute time limit.',
+    sessionDescription: 'Select a session to begin. Each session contains {problems} problems with a selectable time limit ({minMinutes}–{maxMinutes} minutes).',
     sessionNumber: 'Session {number}',
     completedBadge: '✓ Completed',
     availableBadge: 'Available',
@@ -84,6 +86,8 @@ const translations: Record<Language, Translations> = {
 
     // Timer
     timerLabel: '{minutes}:{seconds}',
+    timerSelectLabel: 'Time Limit',
+    timerMinutesOption: '{minutes} Minutes',
 
     // Language selector
     selectLanguage: 'Choose Language / Sprache wählen',
@@ -97,7 +101,7 @@ const translations: Record<Language, Translations> = {
     appSubtitle: 'Übe deine Mathematik-Fähigkeiten mit zeitlich begrenzten Aufgaben',
 
     // Session list
-    sessionDescription: 'Wähle eine Sitzung zum Starten. Jede Sitzung enthält {problems} Aufgaben mit einem {minutes}-minütigen Zeitlimit.',
+    sessionDescription: 'Wähle eine Sitzung zum Starten. Jede Sitzung enthält {problems} Aufgaben mit einem wählbaren Zeitlimit ({minMinutes}–{maxMinutes} Minuten).',
     sessionNumber: 'Sitzung {number}',
     completedBadge: '✓ Abgeschlossen',
     availableBadge: 'Verfügbar',
@@ -129,6 +133,8 @@ const translations: Record<Language, Translations> = {
 
     // Timer
     timerLabel: '{minutes}:{seconds}',
+    timerSelectLabel: 'Zeitlimit',
+    timerMinutesOption: '{minutes} Minuten',
 
     // Language selector
     selectLanguage: 'Choose Language / Sprache wählen',

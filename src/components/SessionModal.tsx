@@ -5,7 +5,7 @@ import TimerDisplay from './TimerDisplay';
 import ProblemSolver from './ProblemSolver';
 import Results from './Results';
 import { useLanguage } from '../contexts/LanguageContext';
-import { initializeSession, TIMER_DURATION_SECONDS, TOTAL_PROBLEMS } from '../utils/storage';
+import { initializeSession, TOTAL_PROBLEMS } from '../utils/storage';
 
 interface SessionModalProps {
   session: SessionData;
@@ -20,12 +20,16 @@ const SessionModal: React.FC<SessionModalProps> = ({
   onClose,
   onSessionComplete,
 }) => {
+  const DEFAULT_TIMER_MINUTES = 10;
+  const TIMER_OPTIONS = [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
+
   const [sessionState, setSessionState] = useState<'start' | 'solving' | 'finished'>('start');
   const [currentProblemIndex, setCurrentProblemIndex] = useState(0);
   const [startTime, setStartTime] = useState<Date | null>(null);
   const [sessionResult, setSessionResult] = useState<SessionResult | null>(null);
   const [initializedSession, setInitializedSession] = useState<SessionData | null>(null);
-  const [timeLeft, setTimeLeft] = useState(TIMER_DURATION_SECONDS);
+  const [selectedMinutes, setSelectedMinutes] = useState(DEFAULT_TIMER_MINUTES);
+  const [timeLeft, setTimeLeft] = useState(DEFAULT_TIMER_MINUTES * 60);
   const { t } = useLanguage();
 
   useEffect(() => {
@@ -66,7 +70,7 @@ const SessionModal: React.FC<SessionModalProps> = ({
   const handleStartSession = () => {
     setSessionState('solving');
     setStartTime(new Date());
-    setTimeLeft(TIMER_DURATION_SECONDS); // Reset timer
+    setTimeLeft(selectedMinutes * 60);
   };
 
   const handleTimeUpdate = (newTimeLeft: number) => {
@@ -161,7 +165,23 @@ const SessionModal: React.FC<SessionModalProps> = ({
           <div className="start-screen">
             <h2>{t('sessionTitle', { number: session.id })}</h2>
             <p>{t('problemsCount', { count: TOTAL_PROBLEMS })}</p>
-            <p>{t('timerDuration', { minutes: Math.floor(TIMER_DURATION_SECONDS / 60) })}</p>
+            <div className="timer-select-group">
+              <label className="timer-select-label" htmlFor="timer-select">
+                {t('timerSelectLabel')}
+              </label>
+              <select
+                id="timer-select"
+                className="timer-select"
+                value={selectedMinutes}
+                onChange={(e) => setSelectedMinutes(Number(e.target.value))}
+              >
+                {TIMER_OPTIONS.map((min) => (
+                  <option key={min} value={min}>
+                    {t('timerMinutesOption', { minutes: min })}
+                  </option>
+                ))}
+              </select>
+            </div>
             <button className="start-button" onClick={handleStartSession}>
               {t('startButton')}
             </button>
@@ -174,7 +194,7 @@ const SessionModal: React.FC<SessionModalProps> = ({
         {sessionState === 'solving' && (
           <>
             <Timer
-              duration={TIMER_DURATION_SECONDS}
+              duration={selectedMinutes * 60}
               onTimeUp={handleTimeUp}
               isActive={true}
               onTimeUpdate={handleTimeUpdate}
